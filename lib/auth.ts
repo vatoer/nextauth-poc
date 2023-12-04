@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { compare, hash } from "bcrypt";
+import { randomBytes } from "crypto";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -46,12 +47,13 @@ export const authOptions: NextAuthOptions = {
         ) {
           return null;
         }
+        const randomKey = randomBytes(32).toString("hex");
 
         return {
           id: user.id,
           email: user.email,
           name: user.name,
-          randomKey: "Hey cool",
+          randomKey: randomKey,
         };
       },
     }),
