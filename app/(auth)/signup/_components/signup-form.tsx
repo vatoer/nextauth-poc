@@ -10,6 +10,7 @@ import { useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import ButtonWithGoogle from "../../_components/button-with-google";
 import InputForm from "../../_components/input-form";
 
 const schema = z.object({
@@ -108,22 +109,7 @@ export const SignupForm = () => {
         <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
           <p className="text-center font-semibold mx-4 mb-0">OR</p>
         </div>
-        <Button
-          onClick={() => signIn("google", { callbackUrl })}
-          type="button"
-          className="flex justify-center items-center gap-x-2 w-full"
-          variant={"outline"}
-        >
-          <Image
-            className="pr-2"
-            src="/images/google.svg"
-            alt=""
-            width={24}
-            height={24}
-            style={{ height: "2rem" }}
-          />
-          <span className="text-slate-600">Continue with Google</span>
-        </Button>
+        <ButtonWithGoogle />
       </form>
       <Link
         href="/signin"

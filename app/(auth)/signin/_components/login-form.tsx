@@ -1,12 +1,25 @@
 "use client";
 
 import { Button, buttonVariants } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Loader } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { type } from "os";
 import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import ButtonWithGoogle from "../../_components/button-with-google";
+import InputForm from "../../_components/input-form";
+
+const formCchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+type FormData = z.infer<typeof formCchema>;
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -20,36 +33,36 @@ export const LoginForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isLoading },
+  } = useForm<FormData>({
+    resolver: zodResolver(formCchema),
+  });
+
+  const onSubmit = async (data: FormData) => {
+    // Handle sign in here with email and password using nextauth
     try {
       setLoading(true);
-      setFormValues({ email: "", password: "" });
 
       const res = await signIn("credentials", {
         redirect: false,
-        email: formValues.email,
-        password: formValues.password,
+        email: data.email,
+        password: data.password,
         callbackUrl,
       });
 
-      setLoading(false);
-
-      console.log(res);
       if (!res?.error) {
         router.push(callbackUrl);
       } else {
-        setError("invalid email or password");
+        throw new Error("invalid email or password");
       }
     } catch (error: any) {
-      setLoading(false);
       setError(error);
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
   };
 
   const input_style =
@@ -57,30 +70,28 @@ export const LoginForm = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit} className="mx-auto">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
         {error && (
           <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
         )}
-        <div className="mb-6">
-          <input
-            required
+        <div className="mb-4 relative group">
+          <InputForm
             type="email"
+            id="email"
+            label="Email"
+            register={register}
             name="email"
-            value={formValues.email}
-            onChange={handleChange}
-            placeholder="Email address"
-            className={`${input_style}`}
+            error={errors.email}
           />
         </div>
-        <div className="mb-6">
-          <input
-            required
+        <div className="mb-4 relative group">
+          <InputForm
             type="password"
+            id="password"
+            label="Password"
+            register={register}
             name="password"
-            value={formValues.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className={`${input_style}`}
+            error={errors.password}
           />
         </div>
         <Button className="w-full py-6" disabled={loading}>
@@ -94,22 +105,7 @@ export const LoginForm = () => {
           <p className="text-center font-semibold mx-4 mb-0">OR</p>
         </div>
 
-        <Button
-          onClick={() => signIn("google", { callbackUrl })}
-          type="button"
-          className="flex justify-center items-center gap-x-2 w-full"
-          variant={"outline"}
-        >
-          <Image
-            className="pr-2"
-            src="/images/google.svg"
-            alt=""
-            width={24}
-            height={24}
-            style={{ height: "2rem" }}
-          />
-          <span className="text-slate-600">Continue with Google</span>
-        </Button>
+        <ButtonWithGoogle />
       </form>
       <Link
         href="/signup"
