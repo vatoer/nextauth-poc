@@ -7,7 +7,7 @@ const ConfirmationPage = () => {
       <div className="items-center space-y-4">
         <h1 className="text-xl">You almost there</h1>
         <p>
-          please check your email to confirm your account. If you don&apos; see
+          please check your email to verify your account. If you don&apos;t see
           it, check your spam folder.
         </p>
         <Link

@@ -28,7 +28,7 @@ const InputForm = ({
       />
       <label
         htmlFor={name}
-        className="transform transition-all absolute top-0 left-0 h-[4em]  items-center p-2 text-sm flex group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:p-2 peer-valid:p-2 group-focus-within:ml-2 peer-valid:ml-2  group-focus-within:top-4 peer-valid:top-4 text-muted-foreground peer-valid:bg-white   group-focus-within:bg-white "
+        className="transform transition-all absolute top-0 left-0 h-[4em]  items-center p-2 text-sm flex group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:p-2 peer-valid:p-2 group-focus-within:ml-2 peer-valid:ml-2  group-focus-within:top-4 peer-valid:top-4 text-muted-foreground group-focus-within:text-blue-600 peer-valid:bg-white   group-focus-within:bg-white "
       >
         {label}
       </label>

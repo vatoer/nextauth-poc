@@ -33,7 +33,6 @@ export const SignupForm = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log("data", data);
     // Handle form submission here
     try {
       const newUser = await fetch("/api/auth/signup", {
@@ -45,14 +44,14 @@ export const SignupForm = () => {
       });
 
       if (!newUser.ok) {
-        throw new Error("Something went wrong");
+        throw new Error(await newUser.text());
       }
 
       console.log("success", data);
       toast.success("Success");
       router.push("/signup/confirmation");
-    } catch (error) {
-      toast.error("Something went wrong");
+    } catch (error: any) {
+      toast.error(error.message);
     } finally {
     }
   };

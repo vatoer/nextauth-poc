@@ -7,6 +7,14 @@ export async function POST(req: Request) {
   const { name, email, password } = await req.json();
 
   try {
+    const userExists = await db.user.findUnique({
+      where: { email },
+    });
+
+    if (userExists) {
+      return new NextResponse("User already exists", { status: 409 });
+    }
+
     const hashedPassword = await hash(password, 10);
     const user = await db.user.create({
       data: {
