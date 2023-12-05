@@ -57,7 +57,7 @@ export const LoginForm = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className="mx-auto">
         {error && (
           <p className="text-center bg-red-300 py-4 mb-6 rounded">{error}</p>
         )}
@@ -118,7 +118,7 @@ export const LoginForm = () => {
           className: "gap-1.5 w-full text-blue-500",
         })}
       >
-        Don't have an account? Sign up
+        {`Don't have an account? Sign up`}
         <ArrowRight className="h-4 w-4 ml-1" />
       </Link>
     </>
