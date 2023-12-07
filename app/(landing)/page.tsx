@@ -1,77 +1,57 @@
-"use client";
+import { Medal } from "lucide-react";
+import { Poppins } from "next/font/google";
+import localFont from "next/font/local";
+import Link from "next/link";
 
-import React from "react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-const LandingPage: React.FC = () => {
+const headingFont = localFont({
+  src: "../../public/fonts/font.woff2",
+});
+
+const textFont = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const MarketingPage = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-between">
-      <header className="bg-blue-500 text-white py-4 px-8">
-        <nav className="flex justify-between">
-          <a href="/" className="text-white font-bold">
-            Home
-          </a>
-          <div>
-            <a href="/services" className="text-white mx-4">
-              Services
-            </a>
-            <a href="/contact" className="text-white mx-4">
-              Contact Us
-            </a>
-            <a href="/register" className="text-white mx-4">
-              Register
-            </a>
-            <a href="/login" className="text-white mx-4">
-              Login
-            </a>
-          </div>
-        </nav>
-      </header>
-
-      <main className="flex-grow py-8 px-8">
-        <section className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Marketing Sentences</h2>
-          <p className="text-lg">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-            vestibulum, tortor nec ultrices commodo, velit mauris tincidunt
-            lacus, vel tincidunt justo nunc id nunc.
-          </p>
-        </section>
-
-        <section className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Subscription Plans</h2>
-          <div className="flex justify-center">
-            <div className="bg-gray-200 p-4 rounded-lg shadow-md mx-4">
-              <h3 className="text-lg font-bold mb-2">Basic</h3>
-              <p className="text-gray-600">Lorem ipsum dolor sit amet</p>
-              <button className="bg-blue-500 text-white py-2 px-4 mt-4 rounded-lg">
-                Subscribe
-              </button>
-            </div>
-            <div className="bg-gray-200 p-4 rounded-lg shadow-md mx-4">
-              <h3 className="text-lg font-bold mb-2">Pro</h3>
-              <p className="text-gray-600">Lorem ipsum dolor sit amet</p>
-              <button className="bg-blue-500 text-white py-2 px-4 mt-4 rounded-lg">
-                Subscribe
-              </button>
-            </div>
-            <div className="bg-gray-200 p-4 rounded-lg shadow-md mx-4">
-              <h3 className="text-lg font-bold mb-2">Premium</h3>
-              <p className="text-gray-600">Lorem ipsum dolor sit amet</p>
-              <button className="bg-blue-500 text-white py-2 px-4 mt-4 rounded-lg">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="bg-gray-200 text-center py-4 px-8 absolute bottom-0 w-full">
-        <p className="text-gray-600">
-          © 2022 Your Company. All rights reserved.
+    <div className="flex items-center justify-center flex-col">
+      <div
+        className={cn(
+          "flex items-center justify-center flex-col",
+          headingFont.className
+        )}
+      >
+        <div className="mb-4 flex items-center border shadow-sm p-4 bg-amber-100 text-amber-700 rounded-full uppercase">
+          <Medal className="h-6 w-6 mr-2" />
+          aplikasi Kondangan terbaik
+        </div>
+        <h1 className="text-2xl md:text-4xl text-center text-neutral-800 mb-6">
+          Kondangan membantu anda untuk mengatur tamu acara anda.
+        </h1>
+        <div className="text-3xl md:text-6xl bg-gradient-to-r from-slate-500 to-fuchsia-800 text-white px-4 p-2 rounded-md pb-4 w-fit">
+          mudah dan cepat
+        </div>
+      </div>
+      <div
+        className={cn(
+          "text-sm md:text-xl text-neutral-400 mt-4 max-w-xs md:max-w-2xl text-center mx-auto",
+          textFont.className
+        )}
+      >
+        <p>
+          Dengan Kondangan, anda dapat membuat undangan digital untuk acara anda
+          dengan. Anda juga bisa membuat daftar tamu dan buku tamu. scan QR Code
+          untuk menghadiri acara anda.
         </p>
-      </footer>
+      </div>
+      <Button className="mt-6" size="lg" asChild>
+        <Link href="/sign-up">Daftar Sekarang</Link>
+      </Button>
     </div>
   );
 };
 
-export default LandingPage;
+export default MarketingPage;
